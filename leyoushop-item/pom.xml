@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>leyoushop</artifactId>
+        <groupId>com.leyoushop.parent</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.leyoushop.item</groupId>
+    <artifactId>leyoushop-item</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>leyoushop-item-interface</module>
+        <module>leyoushop-item-service</module>
+    </modules>
+    <repositories>
+        <repository>
+            <id>spring-milestone-repo</id>
+            <url>http://repo.spring.io/milestone/</url>
+        </repository>
+    </repositories>
+
+    <!-- 该模块是一个聚合模块，主要为pojo -->
+</project>
