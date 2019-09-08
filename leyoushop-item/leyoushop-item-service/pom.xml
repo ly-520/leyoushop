@@ -65,6 +65,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.leyoushop.common</groupId>
+            <artifactId>leyoushop-common</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -75,6 +79,12 @@
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.leyoushop.common</groupId>
+                <artifactId>leyoushop-common</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

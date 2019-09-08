@@ -4,7 +4,8 @@ spring:
   application:
     name: item-service
   datasource:
-    url: jdbc:mysql://leyoushop
+    url: jdbc:mysql://localhost:3306/hm49
+    driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 123456
 eureka:
