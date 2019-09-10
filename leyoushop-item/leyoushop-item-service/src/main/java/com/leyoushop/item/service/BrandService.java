@@ -1,8 +1,14 @@
 package com.leyoushop.item.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.leyoushop.common.pojo.PageResult;
 import com.leyoushop.item.mapper.BrandMapper;
+import com.leyoushop.item.pojo.Brand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.*;
 
@@ -12,32 +18,30 @@ public class BrandService {
     @Autowired
     BrandMapper brandMapper;
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        String str;
-        String[] str2;
-        String a;
-        int b;
-        List<Map<String, Integer>> mylist=null;
-        while (true) {
-            str = sc.nextLine();
-            str2 = str.split(" ");
-            b = Integer.valueOf(str2[1]);
-            if(mylist.size()>n){
-                Map<String, Integer> map2=mylist.get(1);
-                mylist.remove(1);
-                Map<String, Integer> map = new HashMap<>();
-                map.put(str2[1], Integer.valueOf(str2[1]));
-                mylist.add(map);
-                System.out.println(map2);
-            }else{
-                Map<String, Integer> map = new HashMap<>();
-                map.put(str2[1], Integer.valueOf(str2[1]));
-                mylist.add(map);
-            }
-        }
-    }
+   public PageResult<Brand> queryBrandsByPage(String key, Integer page, Integer rows, String sortBy, Boolean desc){
+        //初始化example
+        Example example=new Example(Brand.class);
+        Example.Criteria criteria=example.createCriteria();
 
+        //根据name模糊查询，或根据首字母查询
+        if (!StringUtils.isEmpty(key)){
+            criteria.andLike("name","%"+key+"%").orEqualTo("letter",key);
+        }
+
+        //添加分页查询
+        PageHelper.startPage(page,rows);
+
+        //添加排序条件
+        if (!StringUtils.isEmpty(sortBy)){
+            example.setOrderByClause(sortBy+" "+(desc?"desc":"asc"));
+        }
+
+        List<Brand> brands = this.brandMapper.selectByExample(example);
+
+        //包装成pageinfo
+        PageInfo<Brand> pageInfo=new PageInfo<>(brands);
+        //包装成分页结果集返回
+        return new PageResult<>(pageInfo.getTotal(),pageInfo.getList());
+    }
 
 }
