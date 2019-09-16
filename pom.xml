@@ -13,6 +13,7 @@
         <module>leyoushop-registry</module>
         <module>leyoushop-item</module>
         <module>leyoushop-common</module>
+        <module>leyoushop-upload</module>
     </modules>
 
     <parent>

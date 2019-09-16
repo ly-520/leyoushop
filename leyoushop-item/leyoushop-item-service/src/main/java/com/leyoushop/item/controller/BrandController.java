@@ -3,21 +3,17 @@ package com.leyoushop.item.controller;
 import com.leyoushop.common.pojo.PageResult;
 import com.leyoushop.item.pojo.Brand;
 import com.leyoushop.item.service.BrandService;
-import com.netflix.discovery.converters.Auto;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 @Controller
 @RequestMapping("brand")
 public class BrandController {
-
     @Autowired
     private BrandService brandService;
 
@@ -41,6 +37,14 @@ public class BrandController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(result);
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> saveBrand(Brand brand,@RequestParam("cids") List<Long> cids){
+        this.brandService.saveBrand(brand,cids);
+        System.out.println("==========================>"+brand.toString());
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 }
